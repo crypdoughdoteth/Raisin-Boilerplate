@@ -1,38 +1,63 @@
 import Link from 'next/link'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-//import Iframe from 'react-iframe
+import { useContractRead,
+    useContractWrite,
+    usePrepareContractWrite,
+    useWaitForTransaction  } from 'wagmi'
+// import Iframe from 'react-iframe'
 import config from '../contracts/contractConfig.json'
 import config2 from '../contracts/contractConfig2.json'
 import { useEffect, useState } from "react";
-const ethers = require('ethers');
-const Web3 = require('web3');
 
-import { getProvider, fetchSigner } from '@wagmi/core'
 
-const RaisinCore ={
-    address: config.address,
-    abi: config.abi
-  }
+
+// const ethers = require('ethers');
+// const Web3 = require('web3');
+
+// import { getProvider, fetchSigner } from '@wagmi/core'
+
+
+// const RaisinCore ={
+//     address: config.address,
+//     abi: config.abi
+//   }
     
-const TestToken={
-      address: config2.address,
-      abi: config2.abi
-  }
+// const TestToken={
+//       address: config2.address,
+//       abi: config2.abi
+//   }
  
 
 export default function NextPage() {
-
-
-
-    const [bal, setBal] = useState(0);
-    const web3 = new Web3("https://goerli.infura.io/v3/c95a5dc971344128912ea7a153df503b");
+    // const [bal, setBal] = useState(0);
+    // const web3 = new Web3("https://goerli.infura.io/v3/c95a5dc971344128912ea7a153df503b");
     
-    let contract = new web3.eth.Contract(RaisinCore.abi, RaisinCore.address);
-    const amount_big = contract.methods.getFundBal(0).call();
-    console.log(amount_big);
-    useEffect( () => {
-       setBal(amount_big);
-    }, []);
+    // let contract = new web3.eth.Contract(RaisinCore.abi, RaisinCore.address);
+    // const amount_big = contract.methods.getFundBal(0).call();
+    // console.log(amount_big);
+    // useEffect( () => {
+    //    setBal(amount_big);
+    // }, []);
+ interface Response {
+    data : any ,
+    isSuccess: boolean
+ }  
+    const response: Response = useContractRead({
+        address: config.address,
+        abi: config.abi ,
+        functionName: 'getFundBal',
+        args: [0],
+        onError(error) {
+            console.log('Error', error)
+          },
+     
+      })
+    
+      useEffect(() => {
+        console.log("__________________________");
+        console.log("response.data", parseInt(response.data._hex));
+        console.log("__________________________");
+      }, [response.data]);
 
 
     return (
@@ -92,7 +117,8 @@ export default function NextPage() {
 
                                 <div className="stat">
                                     <div className="stat-title">Current Balance</div>
-                                    <div className="stat-value">${bal}</div>
+                                     <div >{parseInt(response.data._hex)}</div>
+                                   
                                 </div>
                                 <div className='flex flex-col'>
                                     <input type="text" placeholder="Donate USDC" className="input input-bordered input-primary w-full max-w-xs" />
