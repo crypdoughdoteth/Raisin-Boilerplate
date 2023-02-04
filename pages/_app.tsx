@@ -9,6 +9,7 @@ import {
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, goerli } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
+import dynamic from "next/dynamic";
 
 const { chains, provider } = configureChains(
   [goerli],
@@ -28,7 +29,7 @@ const wagmiClient = createClient({
   provider
 })
 
-export default function App({ Component, pageProps }: AppProps) {
+ function App({ Component, pageProps }: AppProps) {
   return(
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider coolMode theme={darkTheme({      
@@ -43,3 +44,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </WagmiConfig>
   );
 }
+
+export default dynamic (() => Promise.resolve(App), {ssr: false})
