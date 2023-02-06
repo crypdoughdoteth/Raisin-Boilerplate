@@ -149,6 +149,7 @@ export default function NextPage() {
                 >
                   End Fund
                 </button></div>
+                 {/*  endFund function  */}
       <div className="flex shadow-xl self-center mt-20 h-2/4 w-2/4">
         <iframe
           width="1440"
