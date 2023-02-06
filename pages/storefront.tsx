@@ -10,6 +10,7 @@ import {
 import contractData from "../contracts/contractConfig.json";
 import config2 from "../contracts/contractConfig2.json";
 import { useEffect, useState } from "react";
+import InitForm from "./InitForm";
 
 // const ethers = require('ethers');
 // const Web3 = require('web3');
@@ -28,9 +29,7 @@ import { useEffect, useState } from "react";
 
 export default function NextPage() {
     const [index, setIndex] = useState<number>(0);
-  const [amount, setAmount] = useState<number>(0);
-  const [tokenAddress, setTokenAddress] = useState<string>("");
-  const [beneficiaryAddress, setBeneficiaryAddress] = useState<string>("");
+    const [totalfund, totalFundsetIndex] = useState<number>(0);
 
   // const web3 = new Web3("https://goerli.infura.io/v3/c95a5dc971344128912ea7a153df503b");
 
@@ -60,7 +59,7 @@ export default function NextPage() {
     address: contractData.address,
     abi: contractData.abi,
     functionName: "endFund",
-    args: [index],
+    args: [totalfund],
     onError(error) {
       console.log("Error", error);
     },
@@ -161,8 +160,19 @@ export default function NextPage() {
         ></iframe>
       </div>
 
+      <div>
+        <p>init function with three inputs amount , tokenaddress and recipient address</p>
+        
+        {/* <InitForm    totalfund= {totalfund}
+                     tokenAddress="number"
+                     recipientAddress="number" 
+        /> */}
+       
+        </div>
+
       <div className="flex flex-row justify-center md:space-x-10 mt-10">
         <div className="card w-1/2 bg-base-100 shadow-xl justify-start">
+          
           <div className="card-body">
             <h2 className="card-title">Welcome to Our Cause!</h2>
             <p className="text-xl">
@@ -183,6 +193,7 @@ export default function NextPage() {
             <div className="flex flex-col">
               <div className="flex flex-col card-actions m-5">
                 <div className="stat">
+                 
                   <div className="stat-title">Fundraising Goal</div>
                   <div className="stat-value">$89,400</div>
                 </div>
