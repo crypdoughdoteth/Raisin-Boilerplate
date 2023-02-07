@@ -1,8 +1,11 @@
 import Link from 'next/link'
+import Navbar from '../components/Navbar'
 
 
 export default function Home() {
   return (
+    <>
+ 
     <div className='flex flex-col'>
       <div className="navbar bg-base-100">
         <a className="btn btn-ghost normal-case text-xl">Raisin</a>
@@ -39,5 +42,6 @@ export default function Home() {
         </footer>
       </div>
     </div>
+    </>
   )
 }

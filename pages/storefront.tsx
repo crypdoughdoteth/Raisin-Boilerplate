@@ -80,14 +80,14 @@ export default function NextPage() {
 
   return (
     <div className="flex flex-col bg-gray-800">
-      <div className="navbar bg-base-100">
+      {/* <div className="navbar bg-base-100">
         <Link href="/" className="btn btn-ghost normal-case text-xl">
           Raisin
         </Link>
         <div className="absolute right-0 px-10 py-10">
-          <ConnectButton />;
+        <ConnectButton />
         </div>
-      </div>
+      </div> */}
 
       <div>
         <div className="flex justify-center shadow-xl">
