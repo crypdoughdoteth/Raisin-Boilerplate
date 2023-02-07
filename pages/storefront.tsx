@@ -10,7 +10,7 @@ import {
 import contractData from "../contracts/contractConfig.json";
 import config2 from "../contracts/contractConfig2.json";
 import { useEffect, useState } from "react";
-import InitForm from "./InitForm";
+import InitForm from "./startfund";
 
 // const ethers = require('ethers');
 // const Web3 = require('web3');

@@ -1,15 +1,15 @@
 import Link from 'next/link'
-import Navbar from '../components/Navbar'
 
 
 export default function Home() {
   return (
     <>
+    
  
     <div className='flex flex-col'>
-      <div className="navbar bg-base-100">
+      {/* <div className="navbar bg-base-100">
         <a className="btn btn-ghost normal-case text-xl">Raisin</a>
-      </div>
+      </div> */}
       <div className="hero min-h-screen" style={{ backgroundImage: `url("https://placeimg.com/1000/800/arch")` }}>
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-center text-neutral-content">
