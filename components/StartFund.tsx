@@ -17,8 +17,8 @@ type FormValues = {
 };
 
 export default function StartFund() {
-  // const [inputs, setInputs] = useState<FormValues>()
-  // console.log(inputs)
+  // const [startInputs, setInputs] = useState<FormValues>()
+  // console.log(startInputs)
 
   const {
     register,
@@ -32,7 +32,7 @@ export default function StartFund() {
    console.log(data)
   };
   //below statementhelps us not use the usestate hooks
-  const inputs = getValues()
+  const startInputs = getValues()
  
   
 
@@ -40,18 +40,18 @@ export default function StartFund() {
     address: contractData.address,
     abi: contractData.abi,
     functionName: "initFund",
-    args: [inputs.amount,inputs.tokenAddress,inputs.recipientAddress],
+    args: [startInputs.amount, startInputs.tokenAddress, startInputs.recipientAddress],
     onError(error) {
       console.log("Error", error);
     },
   });
 
-  const { data, write, isLoading, isSuccess } = useContractWrite(config1);
+  const {  write, isLoading, isSuccess } = useContractWrite(config1);
 
   return (
    <div className="flex justify-center align-center">
     <div className="w-full max-w-xs">
-    <form className = "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
+    <form className ="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
     <div className="mb-4">
       <label className="block text-gray-700 text-sm font-bold mb-2" >Amount :</label>
       <input className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-200 mb-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -63,8 +63,9 @@ export default function StartFund() {
         })}
       />
       {errors.amount && (
-        <div className="error">       
-            <CiWarning color="red" /> Amount is Required        
+        <div className="flex justify-left align-center">          
+            <CiWarning color="red" size={35} />               
+            <p> Amount is Required </p>  
         </div>
       )}
       </div>
@@ -79,9 +80,11 @@ export default function StartFund() {
         })}
       />
       {errors.tokenAddress && (
-        <p>
-           <CiWarning color="red" /> Token Address is Required
-        </p>
+        <div className="flex justify-left align-center"> 
+          <CiWarning color="red" size={35} />
+          <p>Token Address is Required </p>
+          </div>
+        
         
       )}
       </div>
@@ -96,23 +99,24 @@ export default function StartFund() {
         })}
       />
       {errors.recipientAddress && (
-        <div className="error">    
-            <CiWarning color="red" /> Token Recipient is Required       
+        <div className="flex justify-left align-center">    
+            <CiWarning color="red" size={35} />      
+            <p>Token Recipient is Required  </p>
         </div>
       )}
       </div>
 
-      <button className="bg-orange-600 text-teal-400 rounded " type="submit">
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
         Submit details
       </button>
     </form>
     
     <div>
-      <button className="bg-green-600 rounded " disabled={!write} onClick={() => write?.()}>
-        Confirm transactions
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" disabled={!write} onClick={() => write?.()}>
+        Initiate Fundraise
       </button>
       {isLoading && <div>Check Wallet</div>}
-      {isSuccess && <div>Transaction: Done</div>}
+      {isSuccess && <div>Transaction Done</div>}
      </div>
     </div>
 

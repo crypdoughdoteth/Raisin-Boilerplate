@@ -6,39 +6,19 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
-// import Iframe from 'react-iframe'
 import contractData from "../contracts/contractConfig.json";
 import config2 from "../contracts/contractConfig2.json";
 import { useEffect, useState } from "react";
-import InitForm from "./startfund";
+import StartFund from "../components/startfund";
+import DonateToken from "../components/DonateToken";
 
-// const ethers = require('ethers');
-// const Web3 = require('web3');
 
-// import { getProvider, fetchSigner } from '@wagmi/core'
-
-// const RaisinCore ={
-//     address: config.address,
-//     abi: config.abi
-//   }
-
-// const TestToken={
-//       address: config2.address,
-//       abi: config2.abi
-//   }
 
 export default function NextPage() {
     const [index, setIndex] = useState<number>(0);
     const [totalfund, totalFundsetIndex] = useState<number>(0);
 
-  // const web3 = new Web3("https://goerli.infura.io/v3/c95a5dc971344128912ea7a153df503b");
 
-  // let contract = new web3.eth.Contract(RaisinCore.abi, RaisinCore.address);
-  // const amount_big = contract.methods.getFundBal(0).call();
-  // console.log(amount_big);
-  // useEffect( () => {
-  //    setBal(amount_big);
-  // }, []);
   interface Response {
     data: any;
     isSuccess: boolean;
@@ -67,9 +47,6 @@ export default function NextPage() {
 
   const { data: useContractWriteData, write } = useContractWrite(config1);
 
-//   const { data: useWaitForTransactionData, isSuccess } = useWaitForTransaction({
-//     hash: useContractWriteData?.hash,
-//   });
 
   useEffect(() => {
     console.log("__________________________");
@@ -80,18 +57,11 @@ export default function NextPage() {
 
   return (
     <div className="flex flex-col bg-gray-800">
-      {/* <div className="navbar bg-base-100">
-        <Link href="/" className="btn btn-ghost normal-case text-xl">
-          Raisin
-        </Link>
-        <div className="absolute right-0 px-10 py-10">
-        <ConnectButton />
-        </div>
-      </div> */}
-
+        <StartFund />
+        <DonateToken />
       <div>
         <div className="flex justify-center shadow-xl">
-          <div className="carousel h-1/2 w-1/2 m-5">
+          {/* <div className="carousel h-1/2 w-1/2 m-5">
             <div id="item1" className="carousel-item w-full">
               <img
                 src="https://cc0.photo/wp-content/uploads/2022/03/River-flowing-over-stone-stairs-in-sun-980x735.jpg"
@@ -116,9 +86,9 @@ export default function NextPage() {
                 className="w-full"
               />
             </div>
-          </div>
+          </div> */}
         </div>
-        <div className="flex justify-center w-full py-2 gap-2">
+        {/* <div className="flex justify-center w-full py-2 gap-2">
           <a href="#item1" className="btn btn-xs">
             1
           </a>
@@ -131,10 +101,10 @@ export default function NextPage() {
           <a href="#item4" className="btn btn-xs">
             4
           </a>
-        </div>
+        </div> */}
       </div>
-      <div>      {/*  endFund function  */}
-                
+           {/*  endFund function  */}
+           {/* <div> 
                 <p>Enter the index to end fund </p>
                 <input
                   onChange={(e: any) => setIndex(e.target.value)}
@@ -147,7 +117,7 @@ export default function NextPage() {
                   }}
                 >
                   End Fund
-                </button></div>
+                </button></div> */}
                  {/*  endFund function  */}
       <div className="flex shadow-xl self-center mt-20 h-2/4 w-2/4">
         <iframe
@@ -159,16 +129,6 @@ export default function NextPage() {
           allowFullScreen
         ></iframe>
       </div>
-
-      <div>
-        <p>init function with three inputs amount , tokenaddress and recipient address</p>
-        
-        {/* <InitForm    totalfund= {totalfund}
-                     tokenAddress="number"
-                     recipientAddress="number" 
-        /> */}
-       
-        </div>
 
       <div className="flex flex-row justify-center md:space-x-10 mt-10">
         <div className="card w-1/2 bg-base-100 shadow-xl justify-start">
