@@ -10,6 +10,7 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, goerli } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import dynamic from "next/dynamic";
+import Navbar from '../components/Navbar';
 
 const { chains, provider } = configureChains(
   [goerli],
@@ -39,6 +40,7 @@ const wagmiClient = createClient({
       fontStack: 'system',
       overlayBlur: 'small',
       })}chains={chains}>
+        <Navbar />
   <Component {...pageProps} />
   </RainbowKitProvider>
     </WagmiConfig>
