@@ -25,121 +25,123 @@ export default function StartFund() {
     handleSubmit,
     formState: { errors },
     setValue,
-    getValues
+    getValues,
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-   console.log(data)
+    console.log(data);
   };
   //below statementhelps us not use the usestate hooks
-  const startInputs = getValues()
- 
-  
+  const startInputs = getValues();
 
-    const config1 : any  = usePrepareContractWrite({
+  const config1: any = usePrepareContractWrite({
     address: contractData.address,
     abi: contractData.abi,
     functionName: "initFund",
-    args: [startInputs.amount, startInputs.tokenAddress, startInputs.recipientAddress],
+    args: [
+      startInputs.amount,
+      startInputs.tokenAddress,
+      startInputs.recipientAddress,
+    ],
     onError(error) {
       console.log("Error", error);
     },
   });
 
-  const {  write, isLoading, isSuccess } = useContractWrite(config1);
+  const { write, isLoading, isSuccess } = useContractWrite(config1);
 
   return (
-   <div className="flex justify-center align-center">
-    <div className="w-full max-w-xs">
-    <form className ="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
-    <div className="mb-4">
-      <label className="block text-gray-700 text-sm font-bold mb-2" >Amount :</label>
-      <input className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-200 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-        placeholder="Amount"
-        type="number"
-        {...register("amount", {
-          required: true,
-          valueAsNumber: true,
-        })}
-      />
-      {errors.amount && (
-        <div className="flex justify-left align-center">          
-            <CiWarning color="red" size={35} />               
-            <p> Amount is Required </p>  
-        </div>
-      )}
-      </div>
-
-      <div className="mb-6">
-      <label className="block text-gray-700 text-sm font-bold mb-2">Token Address :</label>
-      <input className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-200 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-        placeholder="tokenAddress"
-        {...register("tokenAddress", {
-          required: true,
-          minLength : 30
-        })}
-      />
-      {errors.tokenAddress && (
-        <div className="flex justify-left align-center"> 
-          <CiWarning color="red" size={35} />
-          <p>Token Address is Required </p>
+    <div className="flex justify-center align-center">
+      <p>start fund</p>
+      <div className="w-full max-w-xs">
+        <form
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Amount :
+            </label>
+            <input
+              className="w-full border-gray-400 p-2 rounded-lg"
+              placeholder="Amount"
+              type="number"
+              {...register("amount", {
+                required: true,
+                valueAsNumber: true,
+              })}
+            />
+            {errors.amount && (
+              <div className="flex justify-left align-center">
+                <CiWarning color="red" size={35} />
+                <p> Amount is Required </p>
+              </div>
+            )}
           </div>
-        
-        
-      )}
-      </div>
 
-      <div className="mb-6">
-      <label className="block text-gray-700 text-sm font-bold mb-2">Recipient Address :</label>
-      <input className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-200 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-        placeholder="recipientAddress"
-        {...register("recipientAddress", {
-          required: true,
-          minLength : 30
-        })}
-      />
-      {errors.recipientAddress && (
-        <div className="flex justify-left align-center">    
-            <CiWarning color="red" size={35} />      
-            <p>Token Recipient is Required  </p>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Token Address :
+            </label>
+            <input
+              className="w-full border border-gray-400 p-2 rounded-lg"
+              placeholder="tokenAddress"
+              {...register("tokenAddress", {
+                required: true,
+                minLength: 30,
+              })}
+            />
+            {errors.tokenAddress && (
+              <div className="flex justify-left align-center">
+                <CiWarning color="red" size={35} />
+                <p>Token Address is Required </p>
+              </div>
+            )}
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Recipient Address :
+            </label>
+            <input
+              className="w-full border border-gray-400 p-2 rounded-lg"
+              placeholder="recipientAddress"
+              {...register("recipientAddress", {
+                required: true,
+                minLength: 30,
+              })}
+            />
+            {errors.recipientAddress && (
+              <div className="flex justify-left align-center">
+                <CiWarning color="red" size={35} />
+                <p>Token Recipient is Required </p>
+              </div>
+            )}
+          </div>
+
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+          >
+            Submit details
+          </button>
+        </form>
+
+        <div>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            disabled={!write}
+            onClick={() => write?.()}
+          >
+            Initiate Fundraise
+          </button>
+          {isLoading && <div>Check Wallet</div>}
+          {isSuccess && <div>Transaction Done</div>}
         </div>
-      )}
       </div>
-
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-        Submit details
-      </button>
-    </form>
-    
-    <div>
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" disabled={!write} onClick={() => write?.()}>
-        Initiate Fundraise
-      </button>
-      {isLoading && <div>Check Wallet</div>}
-      {isSuccess && <div>Transaction Done</div>}
-     </div>
-    </div>
-
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import * as React from "react";
 // import { useForm } from "react-hook-form";
@@ -244,4 +246,3 @@ export default function StartFund() {
 //     </main>
 //   );
 // }
-
