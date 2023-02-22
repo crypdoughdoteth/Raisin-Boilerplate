@@ -7,10 +7,9 @@ import contractData from "../contracts/contractConfig.json";
 type FormValues = {
   tokenAddress: string;
   index: number;
-  amount: number;
 };
 
-export default function DonateToken() {
+export default function FundWithdraw() {
   const {
     register,
     handleSubmit,
@@ -28,12 +27,8 @@ export default function DonateToken() {
   const config: any = usePrepareContractWrite({
     address: contractData.address,
     abi: contractData.abi,
-    functionName: "donateToken",
-    args: [
-      donationInputs.tokenAddress,
-      donationInputs.index,
-      donationInputs.amount,
-    ],
+    functionName: "fundWithdraw",
+    args: [donationInputs.tokenAddress, donationInputs.index],
     onError(error) {
       console.log("Error", error);
     },
@@ -43,7 +38,7 @@ export default function DonateToken() {
 
   return (
     <div className="flex justify-center align-center">
-      <p>donate token</p>
+      <p>Fund Withdraw</p>
       <div className="w-full max-w-xs">
         <form
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -90,27 +85,6 @@ export default function DonateToken() {
             )}
           </div>
 
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Amount :
-            </label>
-            <input
-              type="number"
-              className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-200 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="amount"
-              {...register("amount", {
-                required: true,
-                valueAsNumber: true,
-              })}
-            />
-            {errors.amount && (
-              <div className="flex justify-left align-center">
-                <CiWarning color="red" size={35} />
-                <p>Amount is Required </p>
-              </div>
-            )}
-          </div>
-
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
@@ -125,7 +99,7 @@ export default function DonateToken() {
             disabled={!write}
             onClick={() => write?.()}
           >
-            Donate Token
+            FundWithdraw
           </button>
           {isLoading && <div>Check Wallet</div>}
           {isSuccess && <div>Transaction Done</div>}
