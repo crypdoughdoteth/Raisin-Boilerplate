@@ -11,6 +11,9 @@ import config2 from "../contracts/contractConfig2.json";
 import { useEffect, useState } from "react";
 import StartFund from "../components/StartFund";
 import DonateToken from "../components/DonateToken";
+import EndFund from "../components/EndFund";
+import FundWithdraw from "../components/FundWithdraw";
+import Refund from "../components/Refund";
 
 export default function NextPage() {
   const [index, setIndex] = useState<number>(0);
@@ -54,8 +57,16 @@ export default function NextPage() {
     <div className="flex flex-col bg-gray-800">
       <StartFund />
       <div className="bg-gradient-to-r from-yellow-500 to-red-500 via-orange-500 h-5"></div>
-
+      <div className="stat-title">Current Balance</div>
+      {response.isSuccess && <div>{parseInt(response.data._hex)}</div>}
       <DonateToken />
+
+      <div className="bg-gradient-to-r from-yellow-500 to-red-500 via-orange-500 h-5"></div>
+      <EndFund />
+      <div className="bg-gradient-to-r from-yellow-500 to-red-500 via-orange-500 h-5"></div>
+      <FundWithdraw />
+      <div className="bg-gradient-to-r from-yellow-500 to-red-500 via-orange-500 h-5"></div>
+      <Refund />
       <div>
         <div className="flex justify-center shadow-xl">
           {/* <div className="carousel h-1/2 w-1/2 m-5">
